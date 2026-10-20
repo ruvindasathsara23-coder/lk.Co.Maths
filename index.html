@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lk.Co.Maths | A/L Combined Mathematics</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+<div class="brand-banner">
+  <img src="images/logo.png" alt="lk.Co.Maths Logo" class="site-logo">
+</div>
+  <header>
+    <h1>lk.Co.Maths</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#lessons">Lessons</a>
+      <a href="#tutor">AI Tutor</a>
+      <div class="languages">
+  <button onclick="changeLanguage('si')">සිංහල</button>
+  <button onclick="changeLanguage('en')">English</button>
+  <button onclick="changeLanguage('ta')">தமிழ்</button>
+</div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <p>🇱🇰 Sri Lanka A/L Mathematics</p>
+      <h2 id="hero-title">ගණිතය පහසුවෙන් ඉගෙන ගනිමු!</h2>
+      <p>
+        Learn A/L Combined Mathematics step by step.<br>
+        සිංහල • English • தமிழ்
+      </p>
+      <a class="btn" href="#lessons">පාඩම් ආරම්භ කරන්න</a>
+    </section>
+
+    <section id="lessons">
+  <h2>📚 අපගේ පාඩම්</h2>
+  <p id="lessons-description">
+    ඔබගේ ගණිත ගමන අදම ආරම්භ කරන්න.
+  </p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>📐 Pure Mathematics</h3>
+      <p>ශුද්ධ ගණිතය</p>
+      <a class="btn" href="pure.html">පාඩම් තෝරන්න</a>
+    </div>
+
+    <div class="card">
+      <h3>🚀 Applied Mathematics</h3>
+      <p>ව්‍යවහාරික ගණිතය</p>
+      <a class="btn" href="applied.html">පාඩම් තෝරන්න</a>
+    </div>
+
+    <div class="card">
+      <h3>📝 Practice Questions</h3>
+      <p>ප්‍රශ්න පුහුණුව</p>
+      <button class="btn" onclick="showTopics('practice')">
+        පුහුණුව ආරම්භ කරන්න
+      </button>
+    </div>
+  </div>
+
+  <div id="topic-list" hidden>
+    <h2 id="topic-heading">පාඩම් තෝරන්න</h2>
+    <p>ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.</p>
+    <div id="topic-cards" class="cards"></div>
+    <button class="btn" onclick="hideTopics()">
+      ← ආපසු යන්න
+    </button>
+  </div>
+</section>
+<section id="practice">
+  <h2>📝 Maths Practice Quiz</h2>
+  <p>ඔබේ ගණිත දැනුම පරීක්ෂා කර ලකුණු ලබාගන්න!</p>
+
+  <div class="quiz-box">
+    <div class="quiz-info">
+      <span id="question-number">ප්‍රශ්නය 1 / 5</span>
+      <span id="score">ලකුණු: 0</span>
+    </div>
+
+    <div class="progress-track">
+      <div id="progress-bar"></div>
+    </div>
+
+    <h3 id="question-text">ප්‍රශ්නය මෙතැන පෙන්වයි</h3>
+
+    <div id="answer-options"></div>
+
+    <p id="feedback" aria-live="polite"></p>
+
+    <button id="next-button" class="btn" disabled>
+      ඊළඟ ප්‍රශ්නය
+    </button>
+
+    <div id="quiz-result" hidden>
+      <h3 id="result-title">ඔබේ ප්‍රතිඵලය</h3>
+      <p id="result-text"></p>
+      <button id="restart-button" class="btn">
+        නැවත උත්සාහ කරන්න
+      </button>
+    </div>
+  </div>
+</section>
+    <section id="tutor">
+      <h2>🤖 AI Maths Tutor</h2>
+      <p>ගණිත ප්‍රශ්න පියවරෙන් පියවර ඉගෙන ගැනීමට සූදානම් වෙන්න!</p>
+      <p>Real AI Tutor එක තවම සම්බන්ධ කර නැත.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 lk.Co.Maths | Learn Mathematics Together</p>
+  </footer>
+<script src="script.js"></script>
+</body>
+</html>

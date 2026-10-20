@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson | lk.Co.Maths</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <style>
+    .lesson-content {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 24px;
+      background: #ffffff;
+      color: #172033;
+      border-radius: 16px;
+      line-height: 1.9;
+    }
+
+    .lesson-content h2,
+    .lesson-content h3 {
+      color: #155eef;
+    }
+
+    .lesson-section {
+      margin: 24px 0;
+      padding: 18px;
+      background: #f1f5ff;
+      border-radius: 12px;
+    }
+
+    .formula {
+      padding: 12px;
+      background: #e0eaff;
+      border-radius: 8px;
+      font-size: 19px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .lesson-menu { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:24px 0; }
+    .lesson-menu a { display:block; text-decoration:none; color:#172033; background:#f1f5ff; border:1px solid #d7e2ff; border-radius:12px; padding:16px; font-weight:700; }
+    .lesson-menu a:hover { background:#e0eaff; }
+    .notice { padding:14px; border-left:4px solid #d9a719; background:#fff8df; border-radius:8px; }
+    .answer-button {
+      margin: 6px;
+      padding: 10px 16px;
+      border: 1px solid #155eef;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    }
+
+    #quiz-feedback {
+      font-weight: bold;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="languages">
+      <button onclick="changeLanguage('si')">සිංහල</button>
+      <button onclick="changeLanguage('en')">English</button>
+      <button onclick="changeLanguage('ta')">தமிழ்</button>
+    </div>
+
+    <h1 id="site-title">📚 lk.Co.Maths</h1>
+    <p id="site-subtitle">A/L ඒකාබද්ධ ගණිතය</p>
+    <a class="btn" id="home-link" href="index.html">← ප්‍රධාන පිටුවට</a>
+  </header>
+
+  <main class="lesson-content">
+    <h2 id="lesson-title">පාඩම පූරණය වෙමින් පවතී...</h2>
+    <div id="lesson-body"></div>
+    <nav id="lesson-sections" class="lesson-menu" aria-label="Lesson sections"></nav>
+    <div id="section-content"></div>
+  </main>
+
+  <script>
+    const topicNames = {
+      "Real Numbers and Functions": {
+        si: "තාත්වික සංඛ්‍යා සහ ශ්‍රිත",
+        en: "Real Numbers and Functions",
+        ta: "மெய்யெண்கள் மற்றும் சார்புகள்"
+      },
+      "Quadratic Functions and Equations": {
+        si: "වර්ගජ ශ්‍රිත සහ වර්ගජ සමීකරණ",
+        en: "Quadratic Functions and Equations",
+        ta: "இருபடிச் சார்புகள் மற்றும் சமன்பாடுகள்"
+      },
+      "Polynomial Functions": {
+        si: "බහුපද ශ්‍රිත",
+        en: "Polynomial Functions",
+        ta: "பல்லுறுப்புச் சார்புகள்"
+      },
+      "Partial Fractions": {
+        si: "භින්න භාග",
+        en: "Partial Fractions",
+        ta: "பகுதி பின்னங்கள்"
+      },
+      "Indices and Logarithms": {
+        si: "දර්ශක සහ ලඝුගණක",
+        en: "Indices and Logarithms",
+        ta: "அடுக்குகள் மற்றும் மடக்கைகள்"
+      },
+      "Inequalities": {
+        si: "අසමානතා",
+        en: "Inequalities",
+        ta: "சமமின்மைகள்"
+      },
+      "Trigonometry": {
+        si: "ත්‍රිකෝණමිතිය",
+        en: "Trigonometry",
+        ta: "முக்கோணவியல்"
+      },
+      "Permutations and Combinations": {
+        si: "සංකරණ හා සංයෝජන",
+        en: "Permutations and Combinations",
+        ta: "வரிசைமாற்றங்கள் மற்றும் சேர்வுகள்"
+      },
+      "Binomial Expansion": {
+        si: "ද්විපද ප්‍රසාරණය",
+        en: "Binomial Expansion",
+        ta: "ஈருறுப்புப் பெருக்கம்"
+      },
+      "Mathematical Induction": {
+        si: "ගණිත අභ්‍යුහන මූලධර්මය",
+        en: "Mathematical Induction",
+        ta: "கணிதத் தூண்டல் முறை"
+      },
+      "Series": {
+        si: "ශ්‍රේණි",
+        en: "Series",
+        ta: "தொடர்கள்"
+      },
+      "Straight Line": {
+        si: "සරල රේඛාව",
+        en: "Straight Line",
+        ta: "நேர்கோடு"
+      },
+      "Circle": {
+        si: "වෘත්තය",
+        en: "Circle",
+        ta: "வட்டம்"
+      },
+      "Limits and Differentiation": {
+        si: "සීමා සහ අවකලනය",
+        en: "Limits and Differentiation",
+        ta: "எல்லைகள் மற்றும் வகையீடு"
+      },
+      "Integration": {
+        si: "අනුකලනය",
+        en: "Integration",
+        ta: "தொகையீடு"
+      },
+      "Complex Numbers": {
+        si: "සංකීර්ණ සංඛ්‍යා",
+        en: "Complex Numbers",
+        ta: "கலப்பெண்கள்"
+      },
+      "Matrices and Determinants": {
+        si: "න්‍යාස සහ නිර්ණායක",
+        en: "Matrices and Determinants",
+        ta: "அணிகள் மற்றும் அணிக்கோவைகள்"
+      },
+      "Vectors": {
+        si: "දෛශික",
+        en: "Vectors",
+        ta: "வெக்டர்கள்"
+      },
+      "Coplanar Forces at a Point": {
+        si: "ලක්ෂයකදී ක්‍රියාකරන ඒකතල බල පද්ධති",
+        en: "Coplanar Forces at a Point",
+        ta: "ஒரு புள்ளியில் செயல்படும் ஒருதள விசைகள்"
+      },
+      "Equilibrium of Three Forces": {
+        si: "ඒකතල බල තුනක සමතුලිතතාව",
+        en: "Equilibrium of Three Forces",
+        ta: "மூன்று விசைகளின் சமநிலை"
+      },
+      "Friction": {
+        si: "ඝර්ෂණය",
+        en: "Friction",
+        ta: "உராய்வு"
+      },
+      "Forces on a Rigid Body": {
+        si: "දෘඩ වස්තුවක් මත ක්‍රියාකරන බල",
+        en: "Forces on a Rigid Body",
+        ta: "திடப்பொருளில் செயல்படும் விசைகள்"
+      },
+      "Centre of Mass": {
+        si: "ස්කන්ධ කේන්ද්‍රය",
+        en: "Centre of Mass",
+        ta: "நிறை மையம்"
+      },
+      "Frameworks": {
+        si: "රාමු සැකිළි",
+        en: "Frameworks",
+        ta: "கட்டமைப்புகள்"
+      },
+      "Motion in a Straight Line": {
+        si: "සරල රේඛාවක් ඔස්සේ චලිතය",
+        en: "Motion in a Straight Line",
+        ta: "நேர்கோட்டில் இயக்கம்"
+      },
+      "Projectiles": {
+        si: "ප්‍රක්ෂිප්ත",
+        en: "Projectiles",
+        ta: "எறிபொருட்கள்"
+      },
+      "Relative Motion": {
+        si: "සාපේක්ෂ චලිතය",
+        en: "Relative Motion",
+        ta: "சார்பு இயக்கம்"
+      },
+      "Newton's Laws of Motion": {
+        si: "නිව්ටන්ගේ චලිත නියම",
+        en: "Newton's Laws of Motion",
+        ta: "நியூட்டனின் இயக்க விதிகள்"
+      },
+      "Circular Motion": {
+        si: "වෘත්ත චලිතය",
+        en: "Circular Motion",
+        ta: "வட்ட இயக்கம்"
+      },
+      "Impulse and Collisions": {
+        si: "ආවේගය සහ ගැටුම්",
+        en: "Impulse and Collisions",
+        ta: "உந்துவிசை மற்றும் மோதல்கள்"
+      },
+      "Work, Energy and Power": {
+        si: "වැඩ, ශක්තිය සහ බලය",
+        en: "Work, Energy and Power",
+        ta: "வேலை, ஆற்றல் மற்றும் திறன்"
+      },
+      "Simple Harmonic Motion - SHM": {
+        si: "සරල අනුවර්තී චලිතය",
+        en: "Simple Harmonic Motion (SHM)",
+        ta: "எளிய இசைவு இயக்கம்"
+      },
+      "Statistics and Measures of Dispersion": {
+        si: "සංඛ්‍යානය සහ විසරණ මිනුම්",
+        en: "Statistics and Measures of Dispersion",
+        ta: "புள்ளியியல் மற்றும் சிதறல் அளவைகள்"
+      },
+      "Probability": {
+        si: "සම්භාවිතාව",
+        en: "Probability",
+        ta: "நிகழ்தகவு"
+      },
+      "Binomial and Poisson Distributions": {
+        si: "ද්විපද සහ පොයිසන් ව්‍යාප්ති",
+        en: "Binomial and Poisson Distributions",
+        ta: "இருபடிப் மற்றும் பாய்சன் பரவல்கள்"
+      }
+    };
+
+    const interfaceText = {
+      si: {
+        subtitle: "A/L ඒකාබද්ධ ගණිතය",
+        home: "← ප්‍රධාන පිටුවට",
+        intro: "මෙම පාඩමේ මූලික සංකල්ප ඉගෙන ගනිමු.",
+        basics: "1. මූලික සංකල්ප",
+        real: "තාත්වික සංඛ්‍යා යනු සංඛ්‍යා රේඛාවක නිරූපණය කළ හැකි සංඛ්‍යා වේ.",
+        types: "උදාහරණ: පූර්ණ සංඛ්‍යා, භාග සංඛ්‍යා සහ අතාර්කික සංඛ්‍යා.",
+        functions: "2. ශ්‍රිතයක් යනු කුමක්ද?",
+        functionInfo: "ශ්‍රිතයක් යනු එක් එක් ආදානයට නිශ්චිත ප්‍රතිදානයක් ලබා දෙන සම්බන්ධතාවයකි.",
+        example: "3. උදාහරණය",
+        exampleInfo: "f(x) = 2x + 3 නම්, x = 4 සඳහා:",
+        answer: "f(4) = 2 × 4 + 3 = 11",
+        practice: "4. පුහුණු ප්‍රශ්නය",
+        question: "f(x) = 3x + 2 නම්, f(4) හි අගය කීයද?",
+        correct: "නිවැරදියි! f(4) = 3 × 4 + 2 = 14.",
+        wrong: "නැවත උත්සාහ කරන්න. f(4) = 3 × 4 + 2 ලෙස ගණනය කරන්න.",
+        note: "සටහන: අනෙක් පාඩම්වලට අදාළ සම්පූර්ණ පාඩම් අන්තර්ගතය ඉදිරියේදී එකතු කළ හැකිය.",
+        back: "← පාඩම් තෝරන්න",
+        overview: "පාඩම පිළිබඳ විස්තරය", worked: "ගැටලු විසඳීම්", community: "අපගේ ගැටලු", papers: "පසුගිය විභාග ප්‍රශ්න පත්‍ර",
+        overviewText: "මෙම කොටසෙහි පාඩමේ අරමුණු, විෂය නිර්දේශයට ඇති සම්බන්ධය සහ විභාග සූදානම පිළිබඳ විස්තර එකතු කරනු ලැබේ. එක් එක් පාඩමෙන් ලැබෙන ලකුණු/ප්‍රශ්න ගණන වසරෙන් වසර වෙනස් විය හැකි බැවින් තහවුරු කළ ප්‍රශ්න පත්‍ර අනුව පමණක් දක්වන්න.",
+        workedText: "මෙහි පියවරෙන් පියවර විසඳූ උදාහරණ සහ පුහුණු ගැටලු එකතු කරනු ලැබේ.",
+        communityText: "ශිෂ්‍යයන්ගේ ගැටලු සියලු දෙනාට පෙන්වමින් ඉදිරිපත් කිරීම සඳහා ගිණුම් සහ database/backend පහසුකමක් සම්බන්ධ කළ යුතුය. මෙම ZIP අනුව එය තවම online ලෙස ක්‍රියාත්මක නොවේ.",
+        papersText: "අවශ්‍ය වර්ෂය සහ ප්‍රශ්නය තෝරාගැනීමේ කොටස මෙහි සකස් කර ඇත. සැබෑ ප්‍රශ්න පත්‍ර, marking schemes සහ upload/marking සේවාවක් ලබාදීමට ඒවා නීත්‍යානුකූලව ලබාගෙන backend එක සම්බන්ධ කළ යුතුය.",
+        yearLabel: "වර්ෂය තෝරන්න", questionLabel: "ප්‍රශ්නය", sectionNotice: "මෙය මුල් සැලසුම් කොටසකි; සැබෑ upload සහ ස්වයංක්‍රීය marking තවම සම්බන්ධ කර නැත."
+      },
+      en: {
+        subtitle: "A/L Combined Mathematics",
+        home: "← Home",
+        intro: "Let's learn the basic concepts in this lesson.",
+        basics: "1. Basic Concepts",
+        real: "Real numbers are numbers that can be represented on a number line.",
+        types: "Examples include integers, rational numbers and irrational numbers.",
+        functions: "2. What is a function?",
+        functionInfo: "A function is a relationship that assigns exactly one output to each input.",
+        example: "3. Worked Example",
+        exampleInfo: "If f(x) = 2x + 3, find the value when x = 4:",
+        answer: "f(4) = 2 × 4 + 3 = 11",
+        practice: "4. Practice Question",
+        question: "If f(x) = 3x + 2, what is f(4)?",
+        correct: "Correct! f(4) = 3 × 4 + 2 = 14.",
+        wrong: "Try again. Calculate 3 × 4 + 2.",
+        note: "Note: Full lesson content for the other topics can be added next.",
+        back: "← Choose Lessons",
+        overview: "Lesson overview", worked: "Worked solutions", community: "Community questions", papers: "Past examination papers",
+        overviewText: "This section will explain the lesson objectives, syllabus relevance and exam preparation. Marks and question counts can vary by year, so show them only when verified against past papers.",
+        workedText: "Step-by-step worked examples and practice problems will be added here.",
+        communityText: "A login system and database/backend are required to publish student-submitted questions for everyone. This ZIP does not yet provide a live online submission service.",
+        papersText: "The year/question selection area is prepared here. Real papers, marking schemes and upload/marking need authorized materials and a connected backend.",
+        yearLabel: "Choose year", questionLabel: "Question", sectionNotice: "This is the initial layout; real uploads and automatic marking are not connected yet."
+      },
+      ta: {
+        subtitle: "A/L ஒருங்கிணைந்த கணிதம்",
+        home: "← முகப்புக்குச் செல்ல",
+        intro: "இந்தப் பாடத்தின் அடிப்படைக் கருத்துகளைக் கற்போம்.",
+        basics: "1. அடிப்படைக் கருத்துகள்",
+        real: "மெய்யெண்கள் என்பவை எண் கோட்டில் குறிக்கக்கூடிய எண்களாகும்.",
+        types: "எடுத்துக்காட்டுகள்: முழு எண்கள், விகிதமுறு எண்கள் மற்றும் விகிதமுறா எண்கள்.",
+        functions: "2. சார்பு என்றால் என்ன?",
+        functionInfo: "ஒவ்வொரு உள்ளீட்டிற்கும் ஒரு குறிப்பிட்ட வெளியீட்டை வழங்கும் தொடர்பு சார்பு எனப்படும்.",
+        example: "3. எடுத்துக்காட்டு",
+        exampleInfo: "f(x) = 2x + 3 எனில், x = 4 ஆக இருக்கும்போது:",
+        answer: "f(4) = 2 × 4 + 3 = 11",
+        practice: "4. பயிற்சி வினா",
+        question: "f(x) = 3x + 2 எனில், f(4) இன் மதிப்பு என்ன?",
+        correct: "சரி! f(4) = 3 × 4 + 2 = 14.",
+        wrong: "மீண்டும் முயற்சிக்கவும். 3 × 4 + 2 எனக் கணக்கிடவும்.",
+        note: "குறிப்பு: மற்ற பாடங்களுக்கான முழுமையான உள்ளடக்கத்தை அடுத்ததாகச் சேர்க்கலாம்.",
+        back: "← பாடங்களைத் தேர்ந்தெடுக்கவும்",
+        overview: "பாட அறிமுகம்", worked: "தீர்க்கப்பட்ட கணக்குகள்", community: "மாணவர் கேள்விகள்", papers: "கடந்தகாலத் தேர்வுத் தாள்கள்",
+        overviewText: "இந்தப் பகுதியில் பாட நோக்கங்கள், பாடத்திட்டத் தொடர்பு மற்றும் தேர்வுக்கான தயாரிப்பு விளக்கப்படும். மதிப்பெண்கள் மற்றும் வினாக்களின் எண்ணிக்கை ஆண்டுக்கு ஆண்டு மாறக்கூடும்; உறுதிப்படுத்தப்பட்ட வினாத்தாள்களின் அடிப்படையில் மட்டுமே குறிப்பிட வேண்டும்.",
+        workedText: "படிப்படியாகத் தீர்க்கப்பட்ட எடுத்துக்காட்டுகளும் பயிற்சிக் கணக்குகளும் இங்கு சேர்க்கப்படும்.",
+        communityText: "மாணவர்கள் சமர்ப்பிக்கும் கேள்விகளை அனைவருக்கும் காட்ட உள்நுழைவு வசதியும் database/backend-மும் தேவை. இந்த ZIP-இல் நேரடி இணையச் சமர்ப்பிப்பு இன்னும் இணைக்கப்படவில்லை.",
+        papersText: "ஆண்டு மற்றும் வினா தேர்வு பகுதி இங்கு அமைக்கப்பட்டுள்ளது. உண்மையான வினாத்தாள்கள், மதிப்பீட்டுத் திட்டங்கள் மற்றும் upload/marking வசதிக்கு அனுமதிக்கப்பட்ட உள்ளடக்கமும் backend இணைப்பும் தேவை.",
+        yearLabel: "ஆண்டைத் தேர்ந்தெடுக்கவும்", questionLabel: "வினா", sectionNotice: "இது ஆரம்ப வடிவமைப்பு மட்டுமே; உண்மையான upload மற்றும் தானியங்கி மதிப்பீடு இன்னும் இணைக்கப்படவில்லை."
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const topicKey = params.get("topic") || "Real Numbers and Functions";
+
+    let language = localStorage.getItem("lkCoMathsLanguage") || "si";
+    if (!interfaceText[language]) language = "si";
+
+    function changeLanguage(lang) {
+      if (!interfaceText[lang]) return;
+      language = lang;
+      localStorage.setItem("lkCoMathsLanguage", lang);
+      renderLesson();
+    }
+
+    function renderLesson() {
+      const t = interfaceText[language];
+      const topic = topicNames[topicKey];
+
+      document.documentElement.lang = language;
+      document.getElementById("site-subtitle").textContent = t.subtitle;
+      document.getElementById("home-link").textContent = t.home;
+
+      const title = topic ? topic[language] : topicKey;
+      document.getElementById("lesson-title").textContent = title;
+      document.title = title + " | lk.Co.Maths";
+
+      const body = document.getElementById("lesson-body");
+
+      if (topicKey === "Real Numbers and Functions") {
+        body.innerHTML = `
+          <p>${t.intro}</p>
+          <section class="lesson-section">
+            <h3>${t.basics}</h3>
+            <p>${t.real}</p>
+            <p>${t.types}</p>
+          </section>
+          <section class="lesson-section">
+            <h3>${t.functions}</h3>
+            <p>${t.functionInfo}</p>
+          </section>
+          <section class="lesson-section">
+            <h3>${t.example}</h3>
+            <p>${t.exampleInfo}</p>
+            <p class="formula">${t.answer}</p>
+          </section>
+          <section class="lesson-section">
+            <h3>${t.practice}</h3>
+            <p>${t.question}</p>
+            <button class="answer-button" onclick="checkAnswer(11)">11</button>
+            <button class="answer-button" onclick="checkAnswer(14)">14</button>
+            <button class="answer-button" onclick="checkAnswer(16)">16</button>
+            <p id="quiz-feedback" aria-live="polite"></p>
+          </section>
+          <p>${t.note}</p>
+        `;
+      } else {
+        body.innerHTML = `
+          <p>${t.intro}</p>
+          <section class="lesson-section">
+            <h3>${t.basics}</h3>
+            <p>${t.note}</p>
+          </section>
+        `;
+      }
+
+      const menu = document.getElementById("lesson-sections");
+      menu.replaceChildren();
+      const sectionContent = document.getElementById("section-content");
+      sectionContent.innerHTML = `
+        <section id="overview" class="lesson-section"><h3>${t.overview}</h3><p>${t.overviewText}</p></section>
+        <section id="worked" class="lesson-section"><h3>${t.worked}</h3><p>${t.workedText}</p></section>
+        <section id="community" class="lesson-section"><h3>${t.community}</h3><p>${t.communityText}</p></section>
+        <section id="papers" class="lesson-section"><h3>${t.papers}</h3><label for="paper-year">${t.yearLabel}: </label><select id="paper-year"><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option></select> <label for="paper-question">${t.questionLabel}: </label><select id="paper-question"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><p class="notice">${t.sectionNotice}</p></section>`;
+      [ ["overview", t.overview], ["worked", t.worked], ["community", t.community], ["papers", t.papers] ].forEach(([id, label]) => {
+        const link = document.createElement("a"); link.href = "#" + id; link.textContent = label; menu.appendChild(link);
+      });
+    }
+
+    function checkAnswer(answer) {
+      const t = interfaceText[language];
+      const feedback = document.getElementById("quiz-feedback");
+      if (!feedback) return;
+
+      feedback.textContent = answer === 14 ? t.correct : t.wrong;
+      feedback.style.color = answer === 14 ? "green" : "#b42318";
+    }
+
+    renderLesson();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pure Mathematics | lk.Co.Maths</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <header>
+    <div class="languages">
+      <button onclick="changeLanguage('si')">සිංහල</button>
+      <button onclick="changeLanguage('en')">English</button>
+      <button onclick="changeLanguage('ta')">தமிழ்</button>
+    </div>
+
+    <h1 id="page-title">📐 ශුද්ධ ගණිතය</h1>
+    <p id="page-subtitle">A/L ඒකාබද්ධ ගණිතය</p>
+    <a class="btn" id="home-link" href="index.html">← ප්‍රධාන පිටුවට</a>
+  </header>
+
+  <main class="container">
+    <h2 id="list-title">📚 ශුද්ධ ගණිත පාඩම්</h2>
+    <p id="list-description">ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.</p>
+    <div id="pure-topic-cards" class="cards"></div>
+  </main>
+
+  <script>
+    const pageText = {
+      si: {
+        title: "📐 ශුද්ධ ගණිතය",
+        subtitle: "A/L ඒකාබද්ධ ගණිතය",
+        home: "← ප්‍රධාන පිටුවට",
+        list: "📚 ශුද්ධ ගණිත පාඩම්",
+        description: "ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.",
+        open: "පාඩම විවෘත කරන්න"
+      },
+      en: {
+        title: "📐 Pure Mathematics",
+        subtitle: "A/L Combined Mathematics",
+        home: "← Home",
+        list: "📚 Pure Mathematics Lessons",
+        description: "Choose a lesson you want to study.",
+        open: "Open Lesson"
+      },
+      ta: {
+        title: "📐 தூய கணிதம்",
+        subtitle: "A/L ஒருங்கிணைந்த கணிதம்",
+        home: "← முகப்புக்குச் செல்ல",
+        list: "📚 தூய கணிதப் பாடங்கள்",
+        description: "நீங்கள் கற்க விரும்பும் பாடத்தைத் தேர்ந்தெடுக்கவும்.",
+        open: "பாடத்தைத் திறக்கவும்"
+      }
+    };
+
+    const topics = [
+      ["තාත්වික සංඛ්‍යා සහ ශ්‍රිත", "Real Numbers and Functions", "மெய்யெண்கள் மற்றும் சார்புகள்"],
+      ["වර්ගජ ශ්‍රිත සහ වර්ගජ සමීකරණ", "Quadratic Functions and Equations", "இருபடிச் சார்புகள் மற்றும் சமன்பாடுகள்"],
+      ["බහුපද ශ්‍රිත", "Polynomial Functions", "பல்லுறுப்புச் சார்புகள்"],
+      ["පරිමේය ශ්‍රිත භින්න භාග වලට වෙන් කිරීම", "Partial Fractions", "பகுதி பின்னங்கள்"],
+      ["දර්ශක සහ ලඝුගණක", "Indices and Logarithms", "அடுக்குகள் மற்றும் மடக்கைகள்"],
+      ["අසමානතා", "Inequalities", "சமமின்மைகள்"],
+      ["ත්‍රිකෝණමිතිය", "Trigonometry", "முக்கோணவியல்"],
+      ["සංකරණ හා සංයෝජන", "Permutations and Combinations", "வரிசைமாற்றங்கள் மற்றும் சேர்வுகள்"],
+      ["ද්විපද ප්‍රසාරණය", "Binomial Expansion", "ஈருறுப்புப் பெருக்கம்"],
+      ["ගණිත අභ්‍යුහන මූලධර්මය", "Mathematical Induction", "கணிதத் தூண்டல் முறை"],
+      ["ශ්‍රේණි", "Series", "தொடர்கள்"],
+      ["සරල රේඛාව", "Straight Line", "நேர்கோடு"],
+      ["වෘත්තය", "Circle", "வட்டம்"],
+      ["සීමා සහ අවකලනය", "Limits and Differentiation", "எல்லைகள் மற்றும் வகையீடு"],
+      ["අනුකලනය", "Integration", "தொகையீடு"],
+      ["සංකීර්ණ සංඛ්‍යා", "Complex Numbers", "கலப்பெண்கள்"],
+      ["න්‍යාස සහ නිර්ණායක", "Matrices and Determinants", "அணிகள் மற்றும் அணிக்கோவைகள்"]
+    ];
+
+    function selectedLanguage() {
+      const lang = localStorage.getItem("lkCoMathsLanguage");
+      return ["si", "en", "ta"].includes(lang) ? lang : "si";
+    }
+
+    function changeLanguage(lang) {
+      if (!pageText[lang]) return;
+      localStorage.setItem("lkCoMathsLanguage", lang);
+      renderPage(lang);
+    }
+
+    function renderPage(lang) {
+      const t = pageText[lang];
+      const index = ["si", "en", "ta"].indexOf(lang);
+
+      document.documentElement.lang = lang;
+      document.title = t.list + " | lk.Co.Maths";
+
+      document.getElementById("page-title").textContent = t.title;
+      document.getElementById("page-subtitle").textContent = t.subtitle;
+      document.getElementById("home-link").textContent = t.home;
+      document.getElementById("list-title").textContent = t.list;
+      document.getElementById("list-description").textContent = t.description;
+
+      const container = document.getElementById("pure-topic-cards");
+      container.replaceChildren();
+
+      topics.forEach((topic, i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const title = document.createElement("h3");
+        title.textContent = `${i + 1}. ${topic[index]}`;
+
+        const button = document.createElement("a");
+        button.className = "btn";
+        button.href = "lesson.html?topic=" + encodeURIComponent(topic[1]);
+        button.textContent = t.open;
+
+        card.append(title, button);
+        container.appendChild(card);
+      });
+    }
+
+    renderPage(selectedLanguage());
+  </script>
+
+</body>
+</html>

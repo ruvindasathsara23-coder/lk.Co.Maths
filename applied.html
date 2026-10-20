@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applied Mathematics | lk.Co.Maths</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+
+  <header>
+    <div class="languages">
+      <button onclick="changeLanguage('si')">සිංහල</button>
+      <button onclick="changeLanguage('en')">English</button>
+      <button onclick="changeLanguage('ta')">தமிழ்</button>
+    </div>
+
+    <h1 id="page-title">🚀 ව්‍යවහාරික ගණිතය</h1>
+    <p id="page-subtitle">A/L ඒකාබද්ධ ගණිතය</p>
+    <a class="btn" id="home-link" href="index.html">← ප්‍රධාන පිටුවට</a>
+  </header>
+
+  <main class="container">
+    <h2 id="list-title">📚 ව්‍යවහාරික ගණිත පාඩම්</h2>
+    <p id="list-description">ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.</p>
+    <div id="applied-topic-cards" class="cards"></div>
+  </main>
+
+  <script>
+    const pageText = {
+      si: {
+        title: "🚀 ව්‍යවහාරික ගණිතය",
+        subtitle: "A/L ඒකාබද්ධ ගණිතය",
+        home: "← ප්‍රධාන පිටුවට",
+        list: "📚 ව්‍යවහාරික ගණිත පාඩම්",
+        description: "ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.",
+        open: "පාඩම විවෘත කරන්න"
+      },
+      en: {
+        title: "🚀 Applied Mathematics",
+        subtitle: "A/L Combined Mathematics",
+        home: "← Home",
+        list: "📚 Applied Mathematics Lessons",
+        description: "Choose a lesson you want to study.",
+        open: "Open Lesson"
+      },
+      ta: {
+        title: "🚀 பயன்பாட்டுக் கணிதம்",
+        subtitle: "A/L ஒருங்கிணைந்த கணிதம்",
+        home: "← முகப்புக்குச் செல்ல",
+        list: "📚 பயன்பாட்டுக் கணிதப் பாடங்கள்",
+        description: "நீங்கள் கற்க விரும்பும் பாடத்தைத் தேர்ந்தெடுக்கவும்.",
+        open: "பாடத்தைத் திறக்கவும்"
+      }
+    };
+
+    const topics = [
+      ["දෛශික", "Vectors", "வெக்டர்கள்"],
+      ["ලක්ෂයකදී ක්‍රියාකරන ඒකතල බල පද්ධති", "Coplanar Forces at a Point", "ஒரு புள்ளியில் செயல்படும் ஒருதள விசைகள்"],
+      ["ඒකතල බල තුනක සමතුලිතතාව", "Equilibrium of Three Forces", "மூன்று விசைகளின் சமநிலை"],
+      ["ඝර්ෂණය", "Friction", "உராய்வு"],
+      ["දෘඩ වස්තුවක් මත ක්‍රියාකරන ඒකතල බල පද්ධති", "Forces on a Rigid Body", "திடப்பொருளில் செயல்படும் விசைகள்"],
+      ["ස්කන්ධ කේන්ද්‍රය", "Centre of Mass", "நிறை மையம்"],
+      ["සන්ධි කළ දඬු රාමු සැකිළි", "Frameworks", "கட்டமைப்புகள்"],
+      ["සරල රේඛාවක් ඔස්සේ චලිතය", "Motion in a Straight Line", "நேர்கோட்டில் இயக்கம்"],
+      ["ප්‍රක්ෂීප්ත", "Projectiles", "எறிபொருட்கள்"],
+      ["සාපේක්ෂ චලිතය", "Relative Motion", "சார்பு இயக்கம்"],
+      ["නිව්ටන්ගේ චලිත නියම", "Newton's Laws of Motion", "நியூட்டனின் இயக்க விதிகள்"],
+      ["වෘත්ත චලිතය", "Circular Motion", "வட்ட இயக்கம்"],
+      ["ආවේගය සහ ගැටුම්", "Impulse and Collisions", "உந்துவிசை மற்றும் மோதல்கள்"],
+      ["වැඩ, ශක්තිය සහ බලය", "Work, Energy and Power", "வேலை, ஆற்றல் மற்றும் திறன்"],
+      ["සරල අනුවර්තී චලිතය", "Simple Harmonic Motion - SHM", "எளிய இசைவு இயக்கம்"],
+      ["සංඛ්‍යානය සහ විසරණ මිනුම්", "Statistics and Measures of Dispersion", "புள்ளியியல் மற்றும் சிதறல் அளவைகள்"],
+      ["සම්භාවිතාව", "Probability", "நிகழ்தகவு"],
+      ["ද්විපද සහ පොයිසන් සම්භාවිතා ව්‍යාප්ති", "Binomial and Poisson Distributions", "இருபடிப் மற்றும் பாய்சன் நிகழ்தகவு பரவல்கள்"]
+    ];
+
+    function selectedLanguage() {
+      const lang = localStorage.getItem("lkCoMathsLanguage");
+      return ["si", "en", "ta"].includes(lang) ? lang : "si";
+    }
+
+    function changeLanguage(lang) {
+      if (!pageText[lang]) return;
+      localStorage.setItem("lkCoMathsLanguage", lang);
+      renderPage(lang);
+    }
+
+    function renderPage(lang) {
+      const t = pageText[lang];
+      const index = ["si", "en", "ta"].indexOf(lang);
+
+      document.documentElement.lang = lang;
+      document.title = t.list + " | lk.Co.Maths";
+
+      document.getElementById("page-title").textContent = t.title;
+      document.getElementById("page-subtitle").textContent = t.subtitle;
+      document.getElementById("home-link").textContent = t.home;
+      document.getElementById("list-title").textContent = t.list;
+      document.getElementById("list-description").textContent = t.description;
+
+      const container = document.getElementById("applied-topic-cards");
+      container.replaceChildren();
+
+      topics.forEach((topic, i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const title = document.createElement("h3");
+        title.textContent = `${i + 1}. ${topic[index]}`;
+
+        const button = document.createElement("a");
+        button.className = "btn";
+        button.href = "lesson.html?topic=" + encodeURIComponent(topic[1]);
+        button.textContent = t.open;
+
+        card.append(title, button);
+        container.appendChild(card);
+      });
+    }
+
+    renderPage(selectedLanguage());
+  </script>
+
+</body>
+</html>
