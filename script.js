@@ -151,6 +151,10 @@ const t = translations[language];
 
   document.documentElement.lang = language;
 
+  document.querySelectorAll("[data-si][data-en][data-ta]").forEach((element) => {
+    element.textContent = element.dataset[language];
+  });
+
   const setText = (selector, value) => {
     const element = document.querySelector(selector);
     if (element) element.textContent = value;

@@ -69,7 +69,8 @@
 
     <h1 id="site-title">📚 lk.Co.Maths</h1>
     <p id="site-subtitle">A/L ඒකාබද්ධ ගණිතය</p>
-    <a class="btn" id="home-link" href="index.html">← ප්‍රධාන පිටුවට</a>
+    <nav aria-label="Main navigation"><a href="index.html" data-si="මුල් පිටුව" data-en="Home" data-ta="முகப்பு">Home</a><a href="lessons.html" data-si="පාඩම්" data-en="Lessons" data-ta="பாடங்கள்">Lessons</a><a href="practice.html" data-si="පුහුණුව" data-en="Practice" data-ta="பயிற்சி">Practice</a><a href="tutor.html" data-si="AI ගුරුවරයා" data-en="AI Tutor" data-ta="AI ஆசிரியர்">AI Tutor</a></nav>
+    <a class="btn" id="home-link" href="lessons.html">← පාඩම් වෙත</a>
   </header>
 
   <main class="lesson-content">
@@ -338,6 +339,7 @@
 
     const params = new URLSearchParams(window.location.search);
     const topicKey = params.get("topic") || "Real Numbers and Functions";
+    const sourcePage = params.get("from") === "applied" ? "applied.html" : "pure.html";
 
     let language = localStorage.getItem("lkCoMathsLanguage") || "si";
     if (!interfaceText[language]) language = "si";
@@ -354,8 +356,11 @@
       const topic = topicNames[topicKey];
 
       document.documentElement.lang = language;
+      document.querySelectorAll("nav[aria-label='Main navigation'] [data-si]").forEach((item) => item.textContent = item.dataset[language]);
       document.getElementById("site-subtitle").textContent = t.subtitle;
-      document.getElementById("home-link").textContent = t.home;
+      const backLink = document.getElementById("home-link");
+      backLink.href = sourcePage;
+      backLink.textContent = t.back;
 
       const title = topic ? topic[language] : topicKey;
       document.getElementById("lesson-title").textContent = title;

@@ -69,6 +69,16 @@ nav a:hover {
   color: #0b1128;
 }
 
+.notice {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 14px 18px;
+  border-left: 4px solid #d9a719;
+  border-radius: 8px;
+  background: #fff8df;
+  color: #172033;
+}
+
 .hero {
   text-align: center;
   padding: 90px 20px;

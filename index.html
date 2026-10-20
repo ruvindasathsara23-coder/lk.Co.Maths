@@ -8,114 +8,34 @@
   <link rel="icon" type="image/png" href="images/logo.png">
 </head>
 <body>
-<div class="brand-banner">
-  <img src="images/logo.png" alt="lk.Co.Maths Logo" class="site-logo">
-</div>
+  <div class="brand-banner"><img src="images/logo.png" alt="lk.Co.Maths Logo" class="site-logo"></div>
   <header>
     <h1>lk.Co.Maths</h1>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#lessons">Lessons</a>
-      <a href="#tutor">AI Tutor</a>
-      <div class="languages">
-  <button onclick="changeLanguage('si')">සිංහල</button>
-  <button onclick="changeLanguage('en')">English</button>
-  <button onclick="changeLanguage('ta')">தமிழ்</button>
-</div>
+    <nav aria-label="Main navigation">
+      <a href="index.html" data-si="මුල් පිටුව" data-en="Home" data-ta="முகப்பு">Home</a><a href="lessons.html" data-si="පාඩම්" data-en="Lessons" data-ta="பாடங்கள்">Lessons</a><a href="practice.html" data-si="පුහුණුව" data-en="Practice" data-ta="பயிற்சி">Practice</a><a href="tutor.html" data-si="AI ගුරුවරයා" data-en="AI Tutor" data-ta="AI ஆசிரியர்">AI Tutor</a>
+      <div class="languages" aria-label="Language selection">
+        <button type="button" onclick="changeLanguage('si')">සිංහල</button><button type="button" onclick="changeLanguage('en')">English</button><button type="button" onclick="changeLanguage('ta')">தமிழ்</button>
+      </div>
     </nav>
   </header>
-
   <main>
-    <section class="hero" id="home">
+    <section class="hero">
       <p>🇱🇰 Sri Lanka A/L Mathematics</p>
       <h2 id="hero-title">ගණිතය පහසුවෙන් ඉගෙන ගනිමු!</h2>
-      <p>
-        Learn A/L Combined Mathematics step by step.<br>
-        සිංහල • English • தமிழ்
-      </p>
-      <a class="btn" href="#lessons">පාඩම් ආරම්භ කරන්න</a>
+      <p data-si="A/L ඒකාබද්ධ ගණිතය පියවරෙන් පියවර ඉගෙන ගනිමු." data-en="Learn A/L Combined Mathematics step by step." data-ta="A/L ஒருங்கிணைந்த கணிதத்தைப் படிப்படியாகக் கற்போம்.">Learn A/L Combined Mathematics step by step.</p>
+      <a class="btn" href="lessons.html" data-si="පාඩම් ආරම්භ කරන්න" data-en="Start Learning" data-ta="கற்கத் தொடங்குங்கள்">පාඩම් ආරම්භ කරන්න</a>
     </section>
-
-    <section id="lessons">
-  <h2>📚 අපගේ පාඩම්</h2>
-  <p id="lessons-description">
-    ඔබගේ ගණිත ගමන අදම ආරම්භ කරන්න.
-  </p>
-
-  <div class="cards">
-    <div class="card">
-      <h3>📐 Pure Mathematics</h3>
-      <p>ශුද්ධ ගණිතය</p>
-      <a class="btn" href="pure.html">පාඩම් තෝරන්න</a>
-    </div>
-
-    <div class="card">
-      <h3>🚀 Applied Mathematics</h3>
-      <p>ව්‍යවහාරික ගණිතය</p>
-      <a class="btn" href="applied.html">පාඩම් තෝරන්න</a>
-    </div>
-
-    <div class="card">
-      <h3>📝 Practice Questions</h3>
-      <p>ප්‍රශ්න පුහුණුව</p>
-      <button class="btn" onclick="showTopics('practice')">
-        පුහුණුව ආරම්භ කරන්න
-      </button>
-    </div>
-  </div>
-
-  <div id="topic-list" hidden>
-    <h2 id="topic-heading">පාඩම් තෝරන්න</h2>
-    <p>ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.</p>
-    <div id="topic-cards" class="cards"></div>
-    <button class="btn" onclick="hideTopics()">
-      ← ආපසු යන්න
-    </button>
-  </div>
-</section>
-<section id="practice">
-  <h2>📝 Maths Practice Quiz</h2>
-  <p>ඔබේ ගණිත දැනුම පරීක්ෂා කර ලකුණු ලබාගන්න!</p>
-
-  <div class="quiz-box">
-    <div class="quiz-info">
-      <span id="question-number">ප්‍රශ්නය 1 / 5</span>
-      <span id="score">ලකුණු: 0</span>
-    </div>
-
-    <div class="progress-track">
-      <div id="progress-bar"></div>
-    </div>
-
-    <h3 id="question-text">ප්‍රශ්නය මෙතැන පෙන්වයි</h3>
-
-    <div id="answer-options"></div>
-
-    <p id="feedback" aria-live="polite"></p>
-
-    <button id="next-button" class="btn" disabled>
-      ඊළඟ ප්‍රශ්නය
-    </button>
-
-    <div id="quiz-result" hidden>
-      <h3 id="result-title">ඔබේ ප්‍රතිඵලය</h3>
-      <p id="result-text"></p>
-      <button id="restart-button" class="btn">
-        නැවත උත්සාහ කරන්න
-      </button>
-    </div>
-  </div>
-</section>
-    <section id="tutor">
-      <h2>🤖 AI Maths Tutor</h2>
-      <p>ගණිත ප්‍රශ්න පියවරෙන් පියවර ඉගෙන ගැනීමට සූදානම් වෙන්න!</p>
-      <p>Real AI Tutor එක තවම සම්බන්ධ කර නැත.</p>
+    <section>
+      <h2>lk.Co.Maths</h2>
+      <p data-si="ඔබගේ ගණිත ගමන අදම ආරම්භ කරන්න." data-en="Start your mathematics journey today." data-ta="இன்றே உங்கள் கணிதப் பயணத்தைத் தொடங்குங்கள்.">ඔබගේ ගණිත ගමන අදම ආරම්භ කරන්න.</p>
+      <div class="cards">
+        <div class="card"><h3 data-si="📚 පාඩම්" data-en="📚 Lessons" data-ta="📚 பாடங்கள்">📚 Lessons</h3><p data-si="සියලුම පාඩම් බලන්න" data-en="Browse all lessons" data-ta="அனைத்துப் பாடங்களையும் பார்க்கவும்">සියලුම පාඩම් බලන්න</p><a class="btn" href="lessons.html" data-si="පාඩම් බලන්න" data-en="Browse lessons" data-ta="பாடங்களைப் பார்க்க">පාඩම් බලන්න</a></div>
+        <div class="card"><h3 data-si="📝 පුහුණුව" data-en="📝 Practice" data-ta="📝 பயிற்சி">📝 Practice</h3><p data-si="ප්‍රශ්න පුහුණුව" data-en="Practice questions" data-ta="பயிற்சிக் கேள்விகள்">ප්‍රශ්න පුහුණුව</p><a class="btn" href="practice.html" data-si="පුහුණුව ආරම්භ කරන්න" data-en="Start practice" data-ta="பயிற்சியைத் தொடங்குங்கள்">පුහුණුව ආරම්භ කරන්න</a></div>
+        <div class="card"><h3 data-si="🤖 AI ගුරුවරයා" data-en="🤖 AI Tutor" data-ta="🤖 AI ஆசிரியர்">🤖 AI Tutor</h3><p data-si="ගණිත සහාය" data-en="Mathematics help" data-ta="கணித உதவி">ගණිත සහාය</p><a class="btn" href="tutor.html" data-si="AI Tutor විවෘත කරන්න" data-en="Open AI Tutor" data-ta="AI ஆசிரியரைத் திறக்க">AI Tutor විවෘත කරන්න</a></div>
+      </div>
     </section>
   </main>
-
-  <footer>
-    <p>© 2026 lk.Co.Maths | Learn Mathematics Together</p>
-  </footer>
-<script src="script.js"></script>
+  <footer><p>© 2026 lk.Co.Maths | Learn Mathematics Together</p></footer>
+  <script src="script.js"></script>
 </body>
 </html>

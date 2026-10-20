@@ -18,7 +18,8 @@
 
     <h1 id="page-title">🚀 ව්‍යවහාරික ගණිතය</h1>
     <p id="page-subtitle">A/L ඒකාබද්ධ ගණිතය</p>
-    <a class="btn" id="home-link" href="index.html">← ප්‍රධාන පිටුවට</a>
+    <nav aria-label="Main navigation"><a href="index.html" data-si="මුල් පිටුව" data-en="Home" data-ta="முகப்பு">Home</a><a href="lessons.html" data-si="පාඩම්" data-en="Lessons" data-ta="பாடங்கள்">Lessons</a><a href="practice.html" data-si="පුහුණුව" data-en="Practice" data-ta="பயிற்சி">Practice</a><a href="tutor.html" data-si="AI ගුරුවරයා" data-en="AI Tutor" data-ta="AI ஆசிரியர்">AI Tutor</a></nav>
+    <a class="btn" id="home-link" href="lessons.html">← පාඩම් වෙත</a>
   </header>
 
   <main class="container">
@@ -33,6 +34,7 @@
         title: "🚀 ව්‍යවහාරික ගණිතය",
         subtitle: "A/L ඒකාබද්ධ ගණිතය",
         home: "← ප්‍රධාන පිටුවට",
+        lessonsBack: "← පාඩම් වෙත",
         list: "📚 ව්‍යවහාරික ගණිත පාඩම්",
         description: "ඔබට ඉගෙනගැනීමට අවශ්‍ය පාඩම තෝරන්න.",
         open: "පාඩම විවෘත කරන්න"
@@ -41,6 +43,7 @@
         title: "🚀 Applied Mathematics",
         subtitle: "A/L Combined Mathematics",
         home: "← Home",
+        lessonsBack: "← Lessons",
         list: "📚 Applied Mathematics Lessons",
         description: "Choose a lesson you want to study.",
         open: "Open Lesson"
@@ -49,6 +52,7 @@
         title: "🚀 பயன்பாட்டுக் கணிதம்",
         subtitle: "A/L ஒருங்கிணைந்த கணிதம்",
         home: "← முகப்புக்குச் செல்ல",
+        lessonsBack: "← பாடங்களுக்குச் செல்ல",
         list: "📚 பயன்பாட்டுக் கணிதப் பாடங்கள்",
         description: "நீங்கள் கற்க விரும்பும் பாடத்தைத் தேர்ந்தெடுக்கவும்.",
         open: "பாடத்தைத் திறக்கவும்"
@@ -92,11 +96,12 @@
       const index = ["si", "en", "ta"].indexOf(lang);
 
       document.documentElement.lang = lang;
+      document.querySelectorAll("nav[aria-label='Main navigation'] [data-si]").forEach((item) => item.textContent = item.dataset[lang]);
       document.title = t.list + " | lk.Co.Maths";
 
       document.getElementById("page-title").textContent = t.title;
       document.getElementById("page-subtitle").textContent = t.subtitle;
-      document.getElementById("home-link").textContent = t.home;
+      document.getElementById("home-link").textContent = t.lessonsBack;
       document.getElementById("list-title").textContent = t.list;
       document.getElementById("list-description").textContent = t.description;
 
@@ -112,7 +117,7 @@
 
         const button = document.createElement("a");
         button.className = "btn";
-        button.href = "lesson.html?topic=" + encodeURIComponent(topic[1]);
+        button.href = "lesson.html?from=applied&topic=" + encodeURIComponent(topic[1]);
         button.textContent = t.open;
 
         card.append(title, button);
