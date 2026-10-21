@@ -1,0 +1,13 @@
+lk.Co.Maths app එක Android සහ iPhone දෙකෙහිම භාවිතා කිරීම
+
+මෙය install කළ හැකි PWA එකකි. මුලින් වෙබ් අඩවිය HTTPS සහිත hosting එකකට publish කළ යුතුය. ZIP එකෙන් පමණක් app එක ස්ථාපනය කළ නොහැක.
+
+Android:
+1. Chrome browser එකෙන් hosted වෙබ් අඩවිය විවෘත කරන්න.
+2. Install app / Add to Home screen තෝරන්න.
+
+iPhone / iPad:
+1. Safari browser එකෙන් hosted වෙබ් අඩවිය විවෘත කරන්න.
+2. Share බොත්තම තට්ටු කර Add to Home Screen තෝරන්න.
+
+පළමු වරට online විවෘත වූ පසු ප්‍රධාන පිටු සහ සම්පත් cache වේ; ඉන්පසු app එක offline ද විවෘත කළ හැක.
