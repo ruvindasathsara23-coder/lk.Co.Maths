@@ -1,8 +1,12 @@
-const CACHE_NAME = 'lk-co-maths-v1';
+const CACHE_NAME = 'lk-co-maths-v2-papers';
 const APP_FILES = [
   './',
   './index.html',
   './lessons.html',
+  './past-papers.html',
+  './paper-question.html',
+  './past-papers.js',
+  './paper-question.js',
   './pure.html',
   './applied.html',
   './lesson.html',
@@ -54,3 +58,4 @@ self.addEventListener('fetch', (event) => {
     return response;
   })));
 });
+
